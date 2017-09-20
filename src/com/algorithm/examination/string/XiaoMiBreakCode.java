@@ -3,28 +3,29 @@ package com.algorithm.examination.string;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
 /**
- * Ğ¡ï¿½×±ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£º1-a,2-b,...,26-z;ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½Ğ¿ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½
- * Ë¼Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- * @author wangbo
- * Created on 2017ï¿½ï¿½9ï¿½ï¿½19ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½8:31:29
+ * Ğ¡Ã×±ÊÊÔÌâÖ®ÃÜÂëÆÆÒë£º1-a,2-b,...,26-z;ÊäÈëÒ»´®Êı×Ö£¬ÅĞ¶ÏËùÓĞ¿ÉÄÜµÄÃÜÂë 
+ * Ë¼Â·£ºÉî¶ÈÓÅÏÈËÑË÷
+ * 
+ * @author wangbo Created on 2017Äê9ÔÂ19ÈÕ ÉÏÎç8:31:29
  */
 public class XiaoMiBreakCode {
 	final static HashMap<String, String> code = new HashMap<>();
 
 	public static void main(String[] args) {
-		// ï¿½ï¿½ï¿½ï¿½
+		// ÊäÈë
 		Scanner in = new Scanner(System.in);
 		ArrayList<String> numbers = new ArrayList<String>();
 		while (in.hasNext()) {
 			numbers.add(in.nextLine());
 		}
-		// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ³õÊ¼»¯±àÂë
 		for (int j = 1; j <= 26; j++) {
 			code.put(String.valueOf(j), String.valueOf(((char) (96 + j))));
 		}
 		HashMap<String, ArrayList<String>> results = new HashMap<String, ArrayList<String>>();
-		// ï¿½ï¿½ï¿½ï¿½
+		// ½âÂë
 		for (int m = 0; m < numbers.size(); m++) {
 			String number = numbers.get(m);
 			dfs(results, number, "", 0);

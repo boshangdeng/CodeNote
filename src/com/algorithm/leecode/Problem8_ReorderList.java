@@ -1,7 +1,6 @@
 package com.algorithm.leecode;
 
 /**
- * L 0→L 1→…→L n-1→L n to L 0→L n →L 1→L n-1→L 2→L n-2→…
  * 快慢指针找到链表中间节点，采用前插法将后半部分链表反转，合并前后子链表
  * 
  * @author wangbo Created on 2017年8月29日 下午11:50:46
