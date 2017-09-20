@@ -2,7 +2,7 @@ package com.algorithm.examination.string;
 
 public class Palindrome {
 	/**
-	 * �ж��ַ����Ƿ�Ϊ�����ַ���
+	 * 判断字符串是否为回文字符串
 	 * 
 	 * @param s
 	 * @return
@@ -10,14 +10,14 @@ public class Palindrome {
 	public static boolean isPalindrome(String s) {
 		if (s == null)
 			return false;
-		// ����һ�����ַ������ú���ԭ�ַ����Ƚ�
+		// 方法一：将字符串倒置后与原字符串比较
 		// StringBuffer sb = new StringBuffer(s);
 		// sb.reverse();
 		// for (int i = 0; i < s.length(); i++) {
 		// if (s.charAt(i) != sb.charAt(i))
 		// return false;
 		// }
-		// ��������ǰ����ָ��Ƚ�
+		// 方法二：前后两指针比较
 		int pre = 0;
 		int end = s.length() - 1;
 		while (pre <= end) {
