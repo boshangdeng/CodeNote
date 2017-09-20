@@ -3,41 +3,42 @@ package com.os;
 import java.util.Scanner;
 
 public class Banker {
-	static int[] available = new int[3];// èµ„æºæ•°
-	static int[][] max = new int[5][3];// æœ€å¤§éœ€æ±‚
-	static int[][] allocation = new int[5][3];// åˆ†é…
-	static int[][] need = new int[5][3];// éœ€æ±‚
-	static int[] request = new int[3];// å­˜æ”¾è¯·æ±‚
-	Scanner in = new Scanner(System.in);
-	int thread;// çº¿ç¨‹å·
+	static int available[] = new int[3]; // ×ÊÔ´Êı
+	static int max[][] = new int[5][3]; // ×î´óĞèÇó
+	static int allocation[][] = new int[5][3]; // ·ÖÅä
+	static int need[][] = new int[5][3]; // ĞèÇó
+	static int request[] = new int[3]; // ´æ·ÅÇëÇó
+	Scanner scanner = new Scanner(System.in);
+	int thread; // Ïß³ÌºÅ
 
-	// åˆå§‹åŒ–
+	// ³õÊ¼»¯
 	public void getData() {
-		System.out.println("è¯·è¾“å…¥A,B,Cä¸‰ç±»èµ„æºæ•°ï¼š");
-		// è¾“å…¥A,B,Cä¸‰ç±»èµ„æºæ•°é‡
-		for (int i = 0; i < 3; i++)
-			available[i] = in.nextInt();
-		// è¾“å…¥è¿›ç¨‹å¯¹ä¸‰ç±»èµ„æºçš„æœ€å¤§éœ€æ±‚
-		for (int j = 0; j < 5; j++) {
-			System.out.println("è¯·è¾“å…¥è¿›ç¨‹" + j + "å¯¹èµ„æºçš„æœ€å¤§éœ€æ±‚");
-			for (int i = 0; i < 3; i++) {
-				max[j][i] = in.nextInt();
-			}
+		System.out.println("ÇëÊäÈëA,B,CÈıÀà×ÊÔ´µÄÊıÄ¿£º");
+		// ÊäÈëA,B,CÈıÀà×ÊÔ´ÊıÁ¿
+		for (int i = 0; i < 3; i++) {
+			available[i] = scanner.nextInt();
 		}
-		// è¾“å…¥è¿›ç¨‹åˆ†é…çš„ä¸‰ç±»èµ„æºæ•°
+		// ÊäÈë½ø³Ì¶ÔÈıÀà×ÊÔ´µÄ×î´óĞèÇó
 		for (int i = 0; i < 5; i++) {
-			System.out.println("è¯·è¾“å…¥è¿›ç¨‹" + i + "å·²åˆ†é…çš„A,B,Cä¸‰ç±»èµ„æºæ•°");
+			System.out.println("ÇëÊäÈë½ø³Ì" + i + "¶ÔA,B,CÈıÀà×ÊÔ´µÄ×î´óĞèÇó");
 			for (int j = 0; j < 3; j++) {
-				allocation[i][j] = in.nextInt();
+				max[i][j] = scanner.nextInt();
 			}
 		}
-		// è®¡ç®—è¿›ç¨‹è¿˜éœ€è¦çš„ä¸‰ç±»èµ„æºæ•°
+		// ÊäÈë½ø³Ì·ÖÅäµÄÈıÀà×ÊÔ´Êı
+		for (int i = 0; i < 5; i++) {
+			System.out.println("ÇëÊäÈë½ø³Ì" + i + "ÒÑ·ÖÅäµÄA,B,CÈıÀà×ÊÔ´Êı");
+			for (int j = 0; j < 3; j++) {
+				allocation[i][j] = scanner.nextInt();
+			}
+		}
+		// ¼ÆËã½ø³Ì»¹ĞèÒªµÄÈıÀà×ÊÔ´Êı
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 3; j++) {
 				need[i][j] = max[i][j] - allocation[i][j];
 			}
 		}
-		// é‡æ–°è®¡ç®—available
+		// ÖØĞÂ¼ÆËãavailable
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 5; j++) {
 				available[i] -= allocation[j][i];
@@ -45,25 +46,25 @@ public class Banker {
 		}
 	}
 
-	// ç”¨æˆ·è¾“å…¥è¦ç”³è¯·èµ„æºçš„çº¿ç¨‹å’Œç”³è¯·çš„èµ„æºï¼Œå¹¶è¿›è¡Œåˆ¤æ–­
+	// ÓÃ»§ÊäÈëÒªÉêÇë×ÊÔ´µÄÏß³ÌºÍÉêÇëµÄ×ÊÔ´£¬²¢½øĞĞÅĞ¶Ï
 	public void getThread() {
-		System.out.println("è¯·è¾“å…¥ç”³è¯·èµ„æºçš„çº¿ç¨‹");
-		int thread = in.nextInt(); // çº¿ç¨‹
+		System.out.println("ÇëÊäÈëÉêÇë×ÊÔ´µÄÏß³Ì");
+		int thread = scanner.nextInt(); // Ïß³Ì
 		if (thread < 0 || thread > 4) {
-			System.out.println("è¯¥çº¿ç¨‹ä¸å­˜åœ¨,è¯·é‡æ–°è¾“å…¥");
+			System.out.println("¸ÃÏß³Ì²»´æÔÚ,ÇëÖØĞÂÊäÈë");
 			getThread();
 		} else {
 			this.thread = thread;
-			System.out.println("è¯·è¾“å…¥ç”³è¯·çš„èµ„æº(ä¸‰ç§ï¼Œè‹¥æŸç§èµ„æºä¸ç”³è¯·åˆ™å¡«0)");
+			System.out.println("ÇëÊäÈëÉêÇëµÄ×ÊÔ´(ÈıÖÖ£¬ÈôÄ³ÖÖ×ÊÔ´²»ÉêÇëÔòÌî0)");
 			for (int i = 0; i < 3; i++) {
-				request[i] = in.nextInt();
+				request[i] = scanner.nextInt();
 			}
 			if (request[0] > need[thread][0] || request[1] > need[thread][1] || request[2] > need[thread][2]) {
-				System.out.println(thread + "çº¿ç¨‹ç”³è¯·çš„èµ„æºè¶…å‡ºå…¶éœ€è¦çš„èµ„æºï¼Œè¯·é‡æ–°è¾“å…¥");
+				System.out.println(thread + "Ïß³ÌÉêÇëµÄ×ÊÔ´³¬³öÆäĞèÒªµÄ×ÊÔ´£¬ÇëÖØĞÂÊäÈë");
 				getThread();
 			} else {
 				if (request[0] > available[0] || request[1] > available[1] || request[2] > available[2]) {
-					System.out.println(thread + "çº¿ç¨‹ç”³è¯·çš„èµ„æºå¤§äºç³»ç»Ÿèµ„æºï¼Œè¯·é‡æ–°è¾“å…¥");
+					System.out.println(thread + "Ïß³ÌÉêÇëµÄ×ÊÔ´´óÓÚÏµÍ³×ÊÔ´£¬ÇëÖØĞÂÊäÈë");
 					getThread();
 				}
 			}
@@ -74,42 +75,43 @@ public class Banker {
 				recoverData(thread);
 				getThread();
 			}
+
 		}
 	}
 
-	// threadçº¿ç¨‹è¯·æ±‚å“åº”åï¼Œè¯•æ¢æ€§åˆ†é…èµ„æº
+	// threadÏß³ÌÇëÇóÏìÓ¦ºó£¬ÊÔÌ½ĞÔ·ÖÅä×ÊÔ´
 	public void changeData(int thread) {
 		for (int i = 0; i < 3; i++) {
-			// é‡æ–°è°ƒæ•´ç³»ç»Ÿèµ„æºæ•°
+			// ÖØĞÂµ÷ÕûÏµÍ³×ÊÔ´Êı
 			available[i] -= request[i];
-			// è®¡ç®—å„ä¸ªçº¿ç¨‹æ‹¥æœ‰èµ„æº
+			// ¼ÆËã¸÷¸öÏß³ÌÓµÓĞ×ÊÔ´
 			allocation[thread][i] += request[i];
-			// é‡æ–°è®¡ç®—éœ€æ±‚
+			// ÖØĞÂ¼ÆËãĞèÇó
 			need[thread][i] -= request[i];
 		}
 	}
 
-	// å®‰å…¨æ€§æ£€æŸ¥æœªé€šè¿‡ï¼Œåˆ†é…å¤±è´¥æ—¶è°ƒç”¨ï¼Œæ¢å¤ç³»ç»ŸåŸçŠ¶
+	// °²È«ĞÔ¼ì²éÎªÍ¨¹ı£¬·ÖÅäÊ§°ÜÊ±µ÷ÓÃ£¬»Ö¸´ÏµÍ³Ô­×´
 	public void recoverData(int thread) {
 		for (int i = 0; i < 3; i++) {
-			// é‡æ–°è°ƒæ•´ç³»ç»Ÿèµ„æºæ•°
+			// ÖØĞÂµ÷ÕûÏµÍ³×ÊÔ´Êı
 			available[i] += request[i];
-			// è®¡ç®—å„ä¸ªçº¿ç¨‹æ‹¥æœ‰èµ„æº
+			// ¼ÆËã¸÷¸öÏß³ÌÓµÓĞ×ÊÔ´
 			allocation[thread][i] -= request[i];
-			// é‡æ–°è®¡ç®—éœ€æ±‚
+			// ÖØĞÂ¼ÆËãĞèÇó
 			need[thread][i] += request[i];
 		}
 	}
 
-	// å¯¹çº¿ç¨‹threadå®‰å…¨æ€§æ£€æŸ¥
+	// ¶ÔÏß³Ìthread°²È«ĞÔ¼ì²é
 	public boolean check(int thread) {
 		boolean finish[] = new boolean[5];
 		int work[] = new int[3];
-		int queue[] = new int[5]; // ç”±äºå­˜æ”¾å®‰å…¨é˜Ÿåˆ—
-		int k = 0;// å®‰å…¨é˜Ÿåˆ—ä¸‹æ ‡
-		int j; // è¦åˆ¤æ–­çš„çº¿ç¨‹
+		int queue[] = new int[5]; // ÓÉÓÚ´æ·Å°²È«¶ÓÁĞ
+		int k = 0;// °²È«¶ÓÁĞÏÂ±ê
+		int j; // ÒªÅĞ¶ÏµÄÏß³Ì
 		int i;
-		// æ˜¯å¦åˆ†é…çš„æ ‡å¿—
+		// ÊÇ·ñ·ÖÅäµÄ±êÖ¾
 		for (i = 0; i < 5; i++)
 			finish[i] = false;
 		j = thread;
@@ -132,26 +134,26 @@ public class Banker {
 					finish[j] = true;
 					queue[k] = j;
 					k++;
-					j = 0; // ä»æœ€å°çº¿ç¨‹å†å¼€å§‹åˆ¤æ–­
+					j = 0; // ´Ó×îĞ¡Ïß³ÌÔÙ¿ªÊ¼ÅĞ¶Ï
 				}
 			}
 		}
 
-		// åˆ¤æ–­æ˜¯å¦éƒ½å±äºå®‰å…¨çŠ¶æ€
+		// ÅĞ¶ÏÊÇ·ñ¶¼ÊôÓÚ°²È«×´Ì¬
 		for (int p = 0; p < 5; p++) {
 			if (finish[p] = false) {
-				System.out.println("ç³»ç»Ÿä¸å®‰å…¨ï¼Œèµ„æºç”³è¯·å¤±è´¥");
+				System.out.println("ÏµÍ³²»°²È«£¬×ÊÔ´ÉêÇëÊ§°Ü");
 				return false;
 			}
 		}
-		System.out.println("èµ„æºç”³è¯·æˆåŠŸï¼Œå®‰å…¨é˜Ÿåˆ—ä¸ºï¼š");
+		System.out.println("×ÊÔ´ÉêÇë³É¹¦£¬°²È«¶ÓÁĞÎª£º");
 		for (int q = 0; q < 5; q++) {
 			System.out.println(queue[q]);
 		}
 		return true;
 	}
 
-	// æ‰“å°needå’Œavailableï¼Œéœ€è¦æ—¶è°ƒç”¨
+	// ´òÓ¡needºÍavailable£¬ĞèÒªÊ±µ÷ÓÃ
 	public void showData() {
 		System.out.println("need");
 		for (int i = 0; i < 5; i++) {
@@ -169,6 +171,7 @@ public class Banker {
 		Banker bk = new Banker();
 		bk.getData();
 		bk.getThread();
+
 	}
 
 }
