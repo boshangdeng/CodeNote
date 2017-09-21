@@ -10,7 +10,7 @@ import java.util.Scanner;
  * 
  * @author wangbo Created on 2017年9月19日 上午8:31:29
  */
-public class XiaoMiBreakCode {
+public class BreakCode {
 	final static HashMap<String, String> code = new HashMap<>();
 
 	public static void main(String[] args) {
