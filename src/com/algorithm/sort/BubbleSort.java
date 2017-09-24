@@ -5,7 +5,7 @@ public class BubbleSort {
 		if (array == null || array.length == 0)
 			return;
 		int temp;
-		boolean flag = false;
+		boolean flag = true;
 		for (int i = 0; i < array.length - 1 && flag; i++) {
 			flag = false;
 			for (int j = array.length - 1; j > i; j--) {
