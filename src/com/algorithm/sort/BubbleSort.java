@@ -6,7 +6,8 @@ public class BubbleSort {
 			return;
 		int temp;
 		boolean flag = false;
-		for (int i = 0; i < array.length - 1; i++) {
+		for (int i = 0; i < array.length - 1 && flag; i++) {
+			flag = false;
 			for (int j = array.length - 1; j > i; j--) {
 				if (array[j] < array[j - 1]) {
 					temp = array[j - 1];
@@ -15,8 +16,6 @@ public class BubbleSort {
 					flag = true;
 				}
 			}
-			if (!flag)
-				break;
 		}
 	}
 }
